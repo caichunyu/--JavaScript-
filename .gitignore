@@ -1,4 +1,5 @@
 # Build and Release Folders
+studying
 bin-debug/
 bin-release/
 [Oo]bj/
@@ -6,7 +7,8 @@ bin-release/
 
 # Other files and folders
 .settings/
-
+.DS_Store
+.idea
 # Executables
 *.swf
 *.air
