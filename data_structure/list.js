@@ -89,7 +89,7 @@ console.log(names.toString(), names.find('yu'));
 //插入元素
 function insert(element, after) {
   let insertPos = this.find(after);
-  if (insertPos > -1){
+  if (insertPos > -1) {
     this.dataStore.splice(insertPos, 0, element);
     this.listSize++;
     return true;
@@ -143,7 +143,7 @@ function currPos() {
 
 //
 function moveTo(position) {
-    this.pos = position;
+  this.pos = position;
 }
 
 //返回列表当前元素
@@ -170,3 +170,53 @@ names.moveTo(2)
 console.log(names.hasPrev(), names.pos, names.listSize)
 
 ////////////实现基于列表的应用
+
+//电影名数组
+let movies = ['The Godfather', 'The Godfather: ParII ', 'Schindler\'s List', 'Forrest Gump', 'The Matrix'];
+//将movies元素保存到列表中
+let movieList = new List();
+for (let i = 0; i < movies.length; i++) {
+  movieList.append(movies[i]);
+}
+
+//显示现有影碟
+function displayList(list) {
+  for (list.front(); list.currPos() < list.length(); list.next()) {
+    if (list.getElement() instanceof Customer) {
+      console.log(list.getElement()['name'] + ',' + list.getElement()['movie'], 'displayList0');
+    } else {
+      console.log(list.getElement(), 'displayList');
+    }
+  }
+}
+
+//新列表 customer，保存在系统中检出电影的客户
+let customers = new List();
+
+function Customer(name, movie) {
+  this.name = name;
+  this.movie = movie;
+}
+
+//允许客户检出电影,电影可租借会从现有影碟删除添加到客户customers列表
+function checkOut(name, movie, movieList, customerList) {
+  if (movieList.contains(movie)) {
+    let c = new Customer(name, movie);
+    customerList.append(c);
+  } else {
+    console.log(movie, 'is not available.')
+  }
+}
+
+//测试checkout函数
+// let movies = 上面已声明
+let movieList1 = new List();
+let customers1 = new List();
+for (let i = 0; i < movies.length; i++) {
+  movieList1.append(movies[i]);
+}
+console.log('available movie:');
+displayList(movieList1);
+checkOut('XinYu', 'The Godfather', movieList1, customers1);
+console.log('customers list');
+displayList(customers1);
