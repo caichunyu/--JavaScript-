@@ -71,14 +71,51 @@ function mulBase(num, base) {
   return converted;
 }
 
-let num= 9;
+let num = 9;
 let base = 8;
 let newNum = mulBase(num, base);
 console.log('new num', newNum)
 
 //应用 回文
 // 回文指的是一个单词短语从前往后写和从后往前写是一样的
-function StackPalindrome(word) {
-  let s2 = new StackPalindrome();
-
+function isPalindrome(word) {
+  let s = new Stack();
+  for (let i = 0; i < word.length; i++) {
+    s.push(word[i]);
+  }
+  let rword = '';
+  while (s.length() > 0) {
+    rword += s.pop();
+  }
+  if (word === rword) {
+    return true;
+  } else {
+    return false;
+  }
 }
+
+let word = 'raar';
+if (isPalindrome(word)) {
+  console.log('palindrome true');
+} else {
+  console.log('false');
+}
+
+//递归演示
+function factorial(n) {
+  let s = new Stack();
+  while (n > 1){
+    console.log('n1', n)
+    s.push(n--);
+    console.log('n2', n)
+
+  }
+  console.log('s', s)
+  let product = 1;
+  while (s.length() > 0){
+    product *= s.pop();
+  }
+  return product;
+}
+
+console.log('fraction', factorial(5));
