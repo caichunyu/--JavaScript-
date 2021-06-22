@@ -14,7 +14,7 @@ function Set() {
   this.contains = contains; //并集辅助方法，判断当前成员在不在集合里
   this.intersect = intersect; //交集
   this.subset = subset;
-  // this.diffderence = diffderence; //补集 属于第一个不属于第二个的
+  this.difference = difference; //补集 属于第一个不属于第二个的
   this.show = show;
 }
 
@@ -108,7 +108,16 @@ function size() {
   return this.dataStore.length;
 }
 
-//
+//difference 求补集 参数
+function difference(set) {
+  let tempSet = new Set();
+  for (let i = 0; i < this.dataStore.length; i++) {
+    if (!set.contains(this.dataStore[i])) {
+      tempSet.add(this.dataStore[i]);
+    }
+  }
+  return tempSet;
+}
 
 //测试union
 console.log('------union')
@@ -117,7 +126,7 @@ let dmp = new Set();
 dmp.add('David');
 dmp.add('Xin');
 dmp.add('Yu');
-dmp.add('na');
+dmp.add('naa');
 dmp.add('a');
 cis.show();
 dmp.show();
@@ -129,6 +138,8 @@ console.log('------intersect')
 let inter = cis.intersect(dmp);
 inter.show();
 console.log('------intersect')
-if (it.subset(dmp)){
+if (it.subset(dmp)) {
   console.log('it is dmp subSet')
 }
+console.log('------difference')
+cis.difference(dmp).show();
