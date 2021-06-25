@@ -161,8 +161,8 @@ function removeNode(node, data ) {
     }
     //两个节点的,本程序按照查右子树的最小值来
     let tempNode = getMin(node.right); //找到右子树的最小节点
-    node.data = tempNode.data;
-    node.right = removeNode(node.right, tempNode.data); //向右赋值
+    node.data = tempNode.data; //找到右子树最小节点后，赋值给删除的当前节点
+    node.right = removeNode(node.right, tempNode.data); //向右赋值寻找
     console.log(' node.right1')
     return node;
   } else if (data < node.data) {
@@ -185,3 +185,11 @@ console.log(nums.getMax())
 console.log(nums.find(22), 'find',)
 console.log('------ remove');
 console.log(removeNode(nums.root,23))
+//详细解释下removeNode(nums.root,23)，二叉树中序为3，16，22，23，45，37，99删除节点值为23的过程
+//删除23，1：从根节点开始查找删除的数值等于节点值，然后判断此节点有无子节点
+// 2：当前节点有子节点，且左右子树都存在，查找右子树的最小子节点，保存
+// 3：赋值给要删除的节点，当前状态要删除的已删除，但是右最小子树还未删除，然后向右递归查找，并且把要删除的data换成最小右子节点的
+// 4：当前来到了初始要删除的右子节点，判断与data的大小，然后递归寻找
+// 5：找到后，根据边界值，左子树，右子树没有，左右都没有，返回相应的节点
+// 6：把返回的结点给予正确的指针，向右查找，返回后的肯定也是node.right指向，这样就正确了
+// 7：递归结束，二叉排序树删除节点完成 推荐结合Chrome的控制台，打断点看算法流程
