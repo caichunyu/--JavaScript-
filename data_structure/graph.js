@@ -21,6 +21,10 @@ function Graph(v) {
   }
   this.addEdge = addEdge; //添加边
   this.showGraph = showGraph; //展示图
+  //查找最短路径
+  this.edgeTo = [];
+  this.pathTo = pathTo;
+  this.hasPathTo = hasPathTo;
 }
 
 //添加边，参数是两个顶点，传入会互相添加到对应的邻接表中，然后边到数量加一
@@ -104,4 +108,41 @@ g1.addEdge(1, 3);
 g1.addEdge(2, 4);
 g1.bfs(0)
 
+//用于查找最短路径的经过修改的bfs
+function bfs1(s) {
+  let queue = []; //存放顶点的队列
+  this.marked[s] = true; //访问标记列表
+  queue.push(s); //访问过的进队列
+  while (queue.length > 0) { //队列不为空时，出队一个顶点，
+    let v = queue.shift(); //出队
+    if (!v) { //出队的顶点在邻接表中，表示已广度优先遍历到节点
+      console.log('visited vertex:', v);
+    }
+    for (let w of this.adj[v]) { //遍历当前已访问的节点邻接表其它值
+      if (!this.marked[w]) { //如果有未访问的顶点
+        this.edgeTo[w] = v;
+        this.marked[w] = true; //设为已访问
+        queue.push(w); //入队
+      }
+    }
+  }
+}
 
+//辅助函数
+function pathTo(v) {
+  let source = 0;
+  if (!this.hasPathTo(v)){
+    return undefined;
+  }
+  let path = [];
+  for (let i = v; i != source; i=this.edgeTo[i]){
+    path.push(i);
+    return path;
+  }
+
+  function hashPathTo(v) {
+    return this.marked[v];
+  }
+}
+
+//测试最短路径
