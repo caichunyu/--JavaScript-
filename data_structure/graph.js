@@ -22,9 +22,10 @@ function Graph(v) {
   this.addEdge = addEdge; //添加边
   this.showGraph = showGraph; //展示图
   //查找最短路径
-  this.edgeTo = [];
-  this.pathTo = pathTo;
-  this.hasPathTo = hasPathTo;
+  // this.bfs1 = bfs1;
+  // this.edgeTo = [];
+  // this.pathTo = pathTo;
+  // this.hasPathTo = hasPathTo;
 }
 
 //添加边，参数是两个顶点，传入会互相添加到对应的邻接表中，然后边到数量加一
@@ -86,7 +87,7 @@ function bfs(s) {
   }
 }
 
-//测试
+// 测试
 g = new Graph(5);
 g.addEdge(0, 1);
 g.addEdge(0, 2);
@@ -108,41 +109,62 @@ g1.addEdge(1, 3);
 g1.addEdge(2, 4);
 g1.bfs(0)
 
-//用于查找最短路径的经过修改的bfs
-function bfs1(s) {
-  let queue = []; //存放顶点的队列
-  this.marked[s] = true; //访问标记列表
-  queue.push(s); //访问过的进队列
-  while (queue.length > 0) { //队列不为空时，出队一个顶点，
-    let v = queue.shift(); //出队
-    if (!v) { //出队的顶点在邻接表中，表示已广度优先遍历到节点
-      console.log('visited vertex:', v);
-    }
-    for (let w of this.adj[v]) { //遍历当前已访问的节点邻接表其它值
-      if (!this.marked[w]) { //如果有未访问的顶点
-        this.edgeTo[w] = v;
-        this.marked[w] = true; //设为已访问
-        queue.push(w); //入队
-      }
-    }
-  }
-}
-
-//辅助函数
-function pathTo(v) {
-  let source = 0;
-  if (!this.hasPathTo(v)){
-    return undefined;
-  }
-  let path = [];
-  for (let i = v; i != source; i=this.edgeTo[i]){
-    path.push(i);
-    return path;
-  }
-
-  function hashPathTo(v) {
-    return this.marked[v];
-  }
-}
-
-//测试最短路径
+//用于查找最短路径的经过修改的bfs 还有些问题
+// 需要数组来保存从一个顶点到下一个顶点的所有边（edgeTo），因为使用广度优先修改，所以每次都会遇到一个没有标记的顶点
+//除了要对这个顶点进行标记外，还会从邻接表中我们在搜索的那个顶点添加一条边到这个顶点
+// function bfs1(s) {
+//   let queue = []; //存放顶点的队列
+//   this.marked[s] = true; //访问标记列表
+//   queue.push(s); //访问过的进队列
+//   while (queue.length > 0) { //队列不为空时，出队一个顶点，
+//     let v = queue.shift(); //出队
+//     if (!v) { //出队的顶点在邻接表中，表示已广度优先遍历到节点
+//       console.log('visited vertex1:', v);
+//     }
+//     for (let w of this.adj[v]) { //遍历当前已访问的节点邻接表其它值
+//       if (!this.marked[w]) { //如果有未访问的顶点
+//         this.edgeTo[w] = v; //添加边的
+//         this.marked[w] = true; //设为已访问
+//         queue.push(w); //入队
+//       }
+//     }
+//   }
+// }
+//
+// //辅助函数，用于展示图中连接到不同顶点的路径，创建一个栈，存和指定顶点有共同边的所有顶点
+// function pathTo(v) {
+//   let source = 0;
+//   if (!this.hasPathTo(v)) {
+//     return undefined;
+//   }
+//   let path = [];
+//   for (let i = v; i !== source; i = this.edgeTo[i]) {
+//     path.push(i);
+//   }
+//   path.push(source);
+//   console.log('path',path)
+//   return path;
+// }
+//
+// function hasPathTo(v) {
+//   return this.marked[v];
+// }
+//
+// //测试最短路径
+// console.log('测试最短路径-------===--')
+// g2 = new Graph(5);
+// g2.bfs1(0)
+// g2.addEdge(0, 1);
+// g2.addEdge(0, 2);
+// g2.addEdge(1, 3);
+// g2.addEdge(2, 4);
+// let vertex = 4;
+// let paths = g2.pathTo(vertex);
+// console.log('paths',paths)
+// while (paths.length > 0) {
+//   if (paths.length > 1) {
+//     console.log(paths.pop() + '-');
+//   } else {
+//     console.log(paths.pop());
+//   }
+// }
