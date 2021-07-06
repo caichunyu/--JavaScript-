@@ -26,20 +26,20 @@ console.log('bubbleSort', bubbleSort(arry));
 //每一趟（i）在第i趟后面的待排序元素中选取最小的元素，作为有序数列的第i个元素，直到n-1趟排完
 function selectSort(data) {
   // outer、min、inner都是代表指针的，temp;临时变量，用来存交换的值
-  let min, temp;
-  for (let outer = 0; outer < data.length; outer++) {
+  let min, temp; //我去掉了min，要是使用的话，要注意调换完元素数值后把min指针也交换
+  for (let outer = 0; outer < data.length; outer++) { //整体的遍历所有元素
     console.log(data, '每轮选择排序'); //这个是每轮选择排序的结果
-    min = outer;
-    for (let inner = outer + 1; inner < data.length; inner++) {
-      if (data[inner] < data[min]) { //当后面要排序的元素中的数据小于前面已排好顺序的元素时
-        min = inner;
-        //swap数据
-        temp = data[min];
-        data[min] = data[outer];
+    // min = outer;
+    for (let inner = outer + 1; inner < data.length; inner++) { //每轮遍历有序序列后面最小的元素
+      if (data[inner] < data[outer]) { //当后面要排序的元素中的数据小于前面已排好顺序的元素时
+        // min = inner;
+        //交换
+        temp = data[inner];
+        data[inner] = data[outer];
         data[outer] = temp;
-        console.log(data, '每次选择排序'); //这个是每次选择排序的结果
+        // min = outer; //用min的话注意交换数值后交换指针
+        console.log(data, '每次选择排序交换', inner, outer, data[outer], data[inner]); //这个是每次选择排序的结果
       }
-
     }
   }
 }
