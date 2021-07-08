@@ -43,6 +43,7 @@ function selectSort(data) {
       }
     }
   }
+  return data;
 }
 
 //selectSort test
@@ -58,16 +59,17 @@ function insertSort(data) {
   //默认第一个元素有序，然后整体的遍历其后所有元素，外面的循环是一趟，里面循环的是外面遍历元素里面一趟
   for (let outer = 1; outer < data.length; outer++) {
     temp = data[outer]; //让temp等于要排序的无序的元素数值
-    inner = outer-1; //inner是有序序列的最后一个元素指针，outer是无序的从前开始的第一个指针
+    // inner = outer - 1; //inner是有序序列的最后一个元素指针，outer是无序的从前开始的第一个指针
     console.log(data, '每轮直接插入排序'); //这个是每轮直接插入排序的结果
-    //inner>0是从后遍历一趟有序序列， data[inner] > temp是有序的比无序待排的大
-    while (inner > 0 && data[inner] > temp) {
-      data[inner] = data[inner - 1]
-      --inner;
+    //inner>0是从后遍历一趟有序序列， data[inner] > temp是有序的比无序待排的大,inner>=0减少执行-1的那一趟
+    // data[inner] > temp不能为outer因为移动后会变
+    for (inner = outer - 1; data[inner] > temp && inner >= 0; inner--) {
+      data[inner + 1] = data[inner]; //向后移动，
       console.log(data, '每次直接插入排序交换'); //这个是每次直接插入排序的结果
     }
-    data[inner] = temp;
+    data[inner + 1] = temp; //inner为0的执行后，再减减就为-1了，跳出当前循环，然后就要+1再插入
   }
+  return data;
 }
 
 //insertSort test
