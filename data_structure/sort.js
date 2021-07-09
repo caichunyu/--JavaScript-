@@ -96,6 +96,17 @@ function shellSort(data) {
   return data;
 }
 
-//insertSort test
+//shellSort test
 let shellArry = [10, 8, 2, 4, 9, 5, 3];
 console.log('shellSort', shellSort(shellArry));
+
+// 归并排序：将两个或者两个以上的有序表组合成一个新的有序表
+// 待排表有n个元素，视为n个有序的子表，每个子表长度为1，两个归并后，得到n/2取上界个的长度为2或者1的有序表，
+// 然后继续合并，重复到一个长度为n的有序表终止。
+function mergeSort(data) {
+
+}
+
+//insertSort test
+let mergeArry = [10, 8, 2, 4, 9, 5, 3];
+console.log('mergeSort', mergeSort(mergeArry));
