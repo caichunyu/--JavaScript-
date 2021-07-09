@@ -81,9 +81,21 @@ console.log('insertSort', insertSort(insertArry));
 // 再取d2<d1，重复上述，直到取的d=1时候，就是所有的数据都在一个组里，然后进行直接插入排序，结束。
 // 希尔提出的方法是d1=n/2，d（i+1）=di/2取下界
 function shellSort(data) {
-
+  let temp, j; // temp是存储数值的，直接插入排序待排元素数值的
+  // dk是希尔排序取得间隔值，按照希尔提出的方法取，步长为排序数据长度的一半取下界，到最小为1终止（相当于直接插入排序）
+  for (let dk = Math.floor(data.length / 2); dk > 0; dk = Math.floor(dk / 2)) {
+    //类似直接插入排序过程，注意i，j初始值
+    for (let i = dk; i < data.length; i++) {
+      temp = data[i];
+      for (j = i - dk; j >= 0 && temp < data[j]; j -= dk) { //除了判别条件，j等于j-dk可以让循环向前，类似直插
+        data[j + dk] = data[j]; //为了向前循环不能用i
+      }
+      data[j + dk] = temp;
+    }
+  }
+  return data;
 }
 
 //insertSort test
 let shellArry = [10, 8, 2, 4, 9, 5, 3];
-console.log('insertSort', shellSort(shellArry));
+console.log('shellSort', shellSort(shellArry));
