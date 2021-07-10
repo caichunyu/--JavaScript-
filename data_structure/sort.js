@@ -20,7 +20,9 @@ function bubbleSort(data) {
 
 // 冒泡 test
 let arry = [10, 8, 2, 4, 9, 5, 3];
+console.time('冒泡排序耗时');
 console.log('bubbleSort', bubbleSort(arry));
+console.timeEnd('冒泡排序耗时')
 
 // 选择排序
 // 将排序的序列分为两个部分，一部分是前面的有序部分，一部分是后面的无序部分，
@@ -48,7 +50,9 @@ function selectSort(data) {
 
 //selectSort test
 let selectArry = [10, 8, 2, 4, 9, 5, 3];
+console.time('选择排序耗时');
 console.log('selectSort', selectSort(selectArry));
+console.timeEnd('选择排序耗时')
 
 // 直接插入排序
 // 将排序的序列分为两个部分，一部分是前面的有序部分，一部分是后面的无序部分，取后面的无序部分元素，在有序部分
@@ -74,7 +78,9 @@ function insertSort(data) {
 
 //insertSort test
 let insertArry = [10, 8, 2, 4, 9, 5, 3];
+console.time('直接插入排序耗时');
 console.log('insertSort', insertSort(insertArry));
+console.timeEnd('直接插入排序耗时')
 
 // 希尔排序,适合大量数据
 // 待排序数据总数为n，取一个小于n的步长d1，将n内所有步长为d1的数据分为一组，然后组内进行直接插入排序，然后
@@ -98,15 +104,45 @@ function shellSort(data) {
 
 //shellSort test
 let shellArry = [10, 8, 2, 4, 9, 5, 3];
+console.time('希尔排序耗时');
 console.log('shellSort', shellSort(shellArry));
+console.timeEnd('希尔排序耗时')
 
 // 归并排序：将两个或者两个以上的有序表组合成一个新的有序表
 // 待排表有n个元素，视为n个有序的子表，每个子表长度为1，两个归并后，得到n/2取上界个的长度为2或者1的有序表，
 // 然后继续合并，重复到一个长度为n的有序表终止。
 function mergeSort(data) {
-
+  //采用自上而下的递归方法
+  let len = data.length; //len是待排序数据个数
+  if (len < 2) { // 一个就直接有序了
+    return data;
+  }
+  // 取中点middle，然后分为两个子数组
+  let middle = Math.floor(len / 2),
+    left = data.slice(0, middle),
+    right = data.slice(middle); // 拆分为两个子数组
+  return merge(mergeSort(left), mergeSort(right));
 }
+
+let merge = (left, right) => {
+  let result = [];
+  while (left.length && right.length) {
+    // 注意: 判断的条件是小于或等于，如果只是小于，那么排序将不稳定.小的加到已排序数组里
+    if (left[0] <= right[0]) {
+      result.push(left.shift());
+    } else {
+      result.push(right.shift());
+    }
+  }
+//一个子数组为空后，把另一个中数据加到结果里
+  while (left.length) result.push(left.shift());
+  while (right.length) result.push(right.shift());
+  return result;
+};
 
 //insertSort test
 let mergeArry = [10, 8, 2, 4, 9, 5, 3];
-console.log('mergeSort', mergeSort(mergeArry));
+// console.log('mergeSort', mergeSort(mergeArry));
+console.time('归并排序耗时');
+console.log('mergeSort :', mergeSort(mergeArry));
+console.timeEnd('归并排序耗时');
