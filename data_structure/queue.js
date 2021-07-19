@@ -85,7 +85,7 @@ function collect(queues, nums) {
 }
 
 //展示将队列中的数据展示
-function dispArry(arr) {
+function disparray(arr) {
   for (let i = 0; i < arr.length; i++) {
     console.log(arr[i] + ' ');
   }
@@ -103,11 +103,11 @@ for (let i = 0; i < 10; i++) { //生成要排序的十个数字
 }
 
 console.log('排序前：');
-dispArry(nums);
+disparray(nums);
 distribute(nums, queues, 10, 1);
 collect(queues, nums);
 distribute(nums, queues, 10, 10);
 collect(queues, nums);
 console.log('排序后：');
-dispArry(nums)
+disparray(nums)
 

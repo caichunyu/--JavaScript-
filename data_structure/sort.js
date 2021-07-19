@@ -19,9 +19,9 @@ function bubbleSort(data) {
 }
 
 // 冒泡 test
-let arry = [10, 8, 2, 4, 9, 5, 3];
+let array = [10, 8, 2, 4, 9, 5, 3];
 console.time('冒泡排序耗时');
-console.log('bubbleSort', bubbleSort(arry));
+console.log('bubbleSort', bubbleSort(array));
 console.timeEnd('冒泡排序耗时')
 
 // 选择排序
@@ -49,9 +49,9 @@ function selectSort(data) {
 }
 
 //selectSort test
-let selectArry = [10, 8, 2, 4, 9, 5, 3];
+let selectArray = [10, 8, 2, 4, 9, 5, 3];
 console.time('选择排序耗时');
-console.log('selectSort', selectSort(selectArry));
+console.log('selectSort', selectSort(selectArray));
 console.timeEnd('选择排序耗时')
 
 // 直接插入排序
@@ -77,9 +77,9 @@ function insertSort(data) {
 }
 
 //insertSort test
-let insertArry = [10, 8, 2, 4, 9, 5, 3];
+let insertArray = [10, 8, 2, 4, 9, 5, 3];
 console.time('直接插入排序耗时');
-console.log('insertSort', insertSort(insertArry));
+console.log('insertSort', insertSort(insertArray));
 console.timeEnd('直接插入排序耗时')
 
 // 希尔排序,适合大量数据
@@ -103,9 +103,9 @@ function shellSort(data) {
 }
 
 //shellSort test
-let shellArry = [10, 8, 2, 4, 9, 5, 3];
+let shellArray = [10, 8, 2, 4, 9, 5, 3];
 console.time('希尔排序耗时');
-console.log('shellSort', shellSort(shellArry));
+console.log('shellSort', shellSort(shellArray));
 console.timeEnd('希尔排序耗时')
 
 // 归并排序：将两个或者两个以上的有序表组合成一个新的有序表
@@ -141,8 +141,37 @@ let merge = (left, right) => {
 };
 
 //insertSort test
-let mergeArry = [10, 8, 2, 4, 9, 5, 3];
-// console.log('mergeSort', mergeSort(mergeArry));
+let mergeArray = [10, 8, 2, 4, 9, 5, 3];
+// console.log('mergeSort', mergeSort(mergeArray));
 console.time('归并排序耗时');
-console.log('mergeSort :', mergeSort(mergeArry));
+console.log('mergeSort :', mergeSort(mergeArray));
 console.timeEnd('归并排序耗时');
+
+//快排
+// 基于分治法思想，是对冒泡排序对改进，选一个基准值pivot，通过一趟排序将待排表划分为两部分，左边的所有元素小于
+// pivot，右边的都大于pivot，然后分别递归的对两个子表进行上述过程，知道每部分内只有一个或者为空，所有元素都排序完成。
+function quickSort(array) {
+  if (array.length === 0) { //输入空数据直接返回
+    return [];
+  }
+
+  let left = []; //左边数组
+  let right = []; //右边数组
+  let pivot = array[0]; //取第一个位置的数值为pivot基准值
+
+  for (let i = 1; i < array.length; i++) { //将除了pivot的所有数据大于的放到右侧，小于的放到左侧数组
+    if (array[i] < pivot) {
+      left.push(array[i]);
+    } else {
+      right.push(array[i]);
+    }
+  }
+  // 对左右数组进行递归和连接左侧数组，pivot右侧数组
+  return quickSort(left).concat(pivot, quickSort(right));
+}
+
+//quickSort test
+let quickArray = [10, 8, 2, 4, 9, 5, 3];
+console.time('快速排序耗时');
+console.log('quickArray :', quickSort(quickArray));
+console.timeEnd('快速排序耗时');
