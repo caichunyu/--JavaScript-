@@ -19,24 +19,24 @@ function curve(grade) {
   return grade + 1;
 }
 
-let grades = [1, 2, 3, 4];
+// let grades = [1, 2, 3, 4];
 let newGrades = nums.map(curve);
 console.log(newGrades);
 
 //filter 类似于every 不返回true 生成新数组，包含结果为true的元素 可以求奇偶等，过滤字符；
 //filter判断奇偶函数
-function idOdd(num) {
-  return num % 2 === 0;
-}
+// function idOdd(num) {
+//   return num % 2 === 0;
+// }
 
 //filter过滤xinyu字符函数
-function afterc(str) {
-  if (str.indexOf('xinyu') > -1) {
-    return true;
-  } else {
-    return false;
-  }
-}
+// function afterc(str) {
+//   if (str.indexOf('xinyu') > -1) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
 //二维数组
 // 设定参数设置二维数组行列，初始值
