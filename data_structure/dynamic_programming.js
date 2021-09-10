@@ -36,24 +36,53 @@ function dpFib(n) {
 
 //test
 console.time('递归计算斐波那契数列耗时');
-console.log(recurFib(53));
+console.log(recurFib(10));
 console.timeEnd('递归计算斐波那契数列耗时');
 console.time('动态规划计算斐波那契数列耗时');
-console.log(dpFib(0));
+console.log(dpFib(55));
 console.timeEnd('动态规划计算斐波那契数列耗时');
 
 // 书中还有一个用动态规划找两个字符串公共最长子串的算法，这也是经典的算法，把动态规划实现的和
 // 普通的写到blog中。
 // 确定两个字符串中最长公共子串
 function lcs(word1, word2) {
-  let max  = 0;
+  let max = 0;
   let index = 0;
-  let lcsarr = new Array(word1.length+1);
-  for (let i=0;i<=word1.length+1; i++){
-    lcsarr[i] =new Array(word2.length+1);
-    for (let j=0; j<=word2.length+1;j++){
-      lcsarr[i][j]=0;
+  let lcsarr = new Array(word1.length + 1);
+  for (let i = 0; i <= word1.length + 1; i++) {
+    lcsarr[i] = new Array(word2.length + 1);
+    for (let j = 0; j <= word2.length + 1; j++) {
+      lcsarr[i][j] = 0;
     }
   }
-
+  for (let i = 0; i <= word1.length; i++) {
+    for (let j = 0; j <= word2.length; j++) {
+      if (i === 0 || j === 0) {
+        lcsarr[i][j] = 0;
+      } else {
+        if (word1[i - 1] === word2[j - 1]) {
+          lcsarr[i][j] = lcsarr[i - 1][j - 1] + 1;
+        } else {
+          lcsarr[i][j] = 0;
+        }
+      }
+      if (max < lcsarr[i][j]) {
+        max = lcsarr[i][j];
+        index = i;
+      }
+    }
+  }
+  let str = '';
+  if (max === 0) {
+    return '';
+  } else {
+    for (let i = index - max; i <= max; i++) {
+      str += word2[i];
+    }
+    return str;
+  }
 }
+
+//test 动态规划和暴力最长公共子串
+console.log('动态规划最长公共子串:', lcs('abbcc','dbbcc'));
+console.log('暴力最长公共子串:', lcs('abbcc','dbbcc'));
