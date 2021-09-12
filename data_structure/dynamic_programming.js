@@ -45,18 +45,21 @@ console.timeEnd('动态规划计算斐波那契数列耗时');
 // 书中还有一个用动态规划找两个字符串公共最长子串的算法，这也是经典的算法，把动态规划实现的和
 // 普通的写到blog中。
 // 确定两个字符串中最长公共子串
-function lcs(word1, word2) {
-  let max = 0;
-  let index = 0;
-  let lcsarr = new Array(word1.length + 1);
-  for (let i = 0; i <= word1.length + 1; i++) {
-    lcsarr[i] = new Array(word2.length + 1);
-    for (let j = 0; j <= word2.length + 1; j++) {
+// 使用一个二维数组存储两个字符串相同位置字符比较结果，初始化二维数组值均为0，两个数组的
+// 相同位置发现了匹配，就将数组的对于行和列元素加1，最后由数组得出公共子串
+function lcs(word1, word2) { // 参数分别代表两个字符串
+                             // 声明两个变量和存储两个字符串相同位置字符比较结果的二维数组
+  let max = 0; // 子串的长度值
+  let index = 0; // 子串开始的位置
+  let lcsarr = new Array(word1.length);
+  for (let i = 0; i < word1.length; i++) {
+    lcsarr[i] = new Array(word2.length);
+    for (let j = 0; j < word2.length; j++) {
       lcsarr[i][j] = 0;
     }
   }
-  for (let i = 0; i <= word1.length; i++) {
-    for (let j = 0; j <= word2.length; j++) {
+  for (let i = 0; i < word1.length; i++) {
+    for (let j = 0; j < word2.length; j++) {
       if (i === 0 || j === 0) {
         lcsarr[i][j] = 0;
       } else {
@@ -83,6 +86,28 @@ function lcs(word1, word2) {
   }
 }
 
+//暴力求最长公共子串
+const findSubStr = (str1, str2) => {
+  if (str1.length > str2.length) { // 把长度较小的字符串赋值给str1
+    [str1, str2] = [str2, str1];
+  }
+  let result = ''; // 变量用来存公共子串
+  const length = str1.length; // 较短的字符串的长度
+  //这两个循环是对'较短的字符串'进行全长到长度为0的遍历和判断是否在较长的字符串中匹配
+  for (let i = length; i > 0; i--) {
+    for (let j = 0; j <= length - i; j++) {
+      result = str1.substring(j, i); // 将较短串中j到i的部分赋给result
+      if (str2.includes(result)) { //如果较长的串中包括结果的话，return
+        return result;
+      }
+    }
+  }
+}
 //test 动态规划和暴力最长公共子串
-console.log('动态规划最长公共子串:', lcs('abbcc','dbbcc'));
-console.log('暴力最长公共子串:', lcs('abbcc','dbbcc'));
+console.time('动态规划最长公共子串耗时');
+console.log('动态规划最长公共子串:', lcs('bbcc2d', 'bbcc2'));
+console.timeEnd('动态规划最长公共子串耗时');
+
+console.time('暴力最长公共子串耗时');
+console.log('暴力最长公共子串:', findSubStr('ab1b2c4c', 'dbbcc'));
+console.timeEnd('暴力最长公共子串耗时')
