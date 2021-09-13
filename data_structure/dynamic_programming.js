@@ -94,10 +94,11 @@ const findSubStr = (str1, str2) => {
   let result = ''; // 变量用来存公共子串
   const length = str1.length; // 较短的字符串的长度
   //这两个循环是对'较短的字符串'进行全长到长度为0的遍历和判断是否在较长的字符串中匹配
-  for (let i = length; i > 0; i--) {
-    for (let j = 0; j <= length - i; j++) {
-      result = str1.substring(j, i); // 将较短串中j到i的部分赋给result
-      if (str2.includes(result)) { //如果较长的串中包括结果的话，return
+  for (let i = length; i > 0; i--) { // 对较短字符串从后向前遍历
+    // 对较短字符串从前向后全部遍历，直到和上个for从后向前遍历相接
+    for (let j = 0; j < i-1; j++) {
+      result = str1.substring(j, i); // 将较短串中j到i(不包括i）的部分赋给result
+      if (str2.includes(result)&&result.length>1) { //如果较长的串中包括结果的话，return
         return result;
       }
     }
@@ -109,5 +110,5 @@ console.log('动态规划最长公共子串:', lcs('bbcc2d', 'bbcc2'));
 console.timeEnd('动态规划最长公共子串耗时');
 
 console.time('暴力最长公共子串耗时');
-console.log('暴力最长公共子串:', findSubStr('ab1b2c4c', 'dbbcc'));
+console.log('暴力最长公共子串:', findSubStr('abb2c4c', 'dbbcc'));
 console.timeEnd('暴力最长公共子串耗时')
