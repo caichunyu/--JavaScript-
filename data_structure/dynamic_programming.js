@@ -47,8 +47,10 @@ console.timeEnd('动态规划计算斐波那契数列耗时');
 // 确定两个字符串中最长公共子串
 // 使用一个二维数组存储两个字符串相同位置字符比较结果，初始化二维数组值均为0，两个数组的
 // 相同位置发现了匹配，就将数组的对于行和列元素加1，最后由数组得出公共子串
+// 参考 https://github.com/xuexueq/blog/issues/29
+// 参考 https://juejin.cn/post/6844903613861462029
 function lcs(word1, word2) { // 参数分别代表两个字符串
-                             // 声明两个变量和存储两个字符串相同位置字符比较结果的二维数组
+  // 声明两个变量和存储两个字符串相同位置字符比较结果的二维数组
   let max = 0; // 子串的长度值
   let index = 0; // 子串开始的位置
   let lcsarr = new Array(word1.length);
@@ -96,9 +98,9 @@ const findSubStr = (str1, str2) => {
   //这两个循环是对'较短的字符串'进行全长到长度为0的遍历和判断是否在较长的字符串中匹配
   for (let i = length; i > 0; i--) { // 对较短字符串从后向前遍历
     // 对较短字符串从前向后全部遍历，直到和上个for从后向前遍历相接
-    for (let j = 0; j < i-1; j++) {
+    for (let j = 0; j < i - 1; j++) {
       result = str1.substring(j, i); // 将较短串中j到i(不包括i）的部分赋给result
-      if (str2.includes(result)&&result.length>1) { //如果较长的串中包括结果的话，return
+      if (str2.includes(result) && result.length > 1) { //如果较长的串中包括结果的话，return
         return result;
       }
     }
@@ -110,5 +112,5 @@ console.log('动态规划最长公共子串:', lcs('bbcc2d', 'bbcc2'));
 console.timeEnd('动态规划最长公共子串耗时');
 
 console.time('暴力最长公共子串耗时');
-console.log('暴力最长公共子串:', findSubStr('abb2c4c', 'dbbcc'));
+console.log('暴力最长公共子串:', findSubStr('fawejfl;dsak；ew', 'dfklajsd;lfjawe;'));
 console.timeEnd('暴力最长公共子串耗时')
