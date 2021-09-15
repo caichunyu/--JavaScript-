@@ -49,41 +49,59 @@ console.timeEnd('动态规划计算斐波那契数列耗时');
 // 相同位置发现了匹配，就将数组的对于行和列元素加1，最后由数组得出公共子串
 // 参考 https://github.com/xuexueq/blog/issues/29
 // 参考 https://juejin.cn/post/6844903613861462029
+// 参考 https://www.bilibili.com/video/BV1aK411J7b8?p=1&share_medium=iphone&share_plat=ios&share_source=QQ&share_tag=s_i&timestamp=1631631325&unique_k=KatrKf
+// 参考 https://alchemist-al.com/algorithms/longest-common-substring
 function lcs(word1, word2) { // 参数分别代表两个字符串
-  // 声明两个变量和存储两个字符串相同位置字符比较结果的二维数组
+                             // 声明两个变量和存储两个字符串相同位置字符比较结果的二维数组
   let max = 0; // 子串的长度值
   let index = 0; // 子串开始的位置
-  let lcsarr = new Array(word1.length);
-  for (let i = 0; i < word1.length; i++) {
+  let m = word1.length;
+  let n = word2.length;
+
+
+  let lcsarr = [];
+  // let lcsarr =[new Array(n + 1).fill(0)]; //初始化一行
+  // 初始化最初的匹配结果矩阵
+  for (let i = 0; i <= word1.length; i++) {
     lcsarr[i] = new Array(word2.length);
-    for (let j = 0; j < word2.length; j++) {
+    for (let j = 0; j <= word2.length; j++) {
       lcsarr[i][j] = 0;
     }
   }
-  for (let i = 0; i < word1.length; i++) {
-    for (let j = 0; j < word2.length; j++) {
-      if (i === 0 || j === 0) {
-        lcsarr[i][j] = 0;
+  console.log('111', lcsarr)
+  // 根据状态迁移方程求最大值，然后最大值的所在的位置
+  // 做矩阵，可以看出子串
+  for (let i = 1; i <= m; i++) {
+    // lcsarr[i] = [0]; //同上的 //初始化一行 后的初始化列
+    for (let j = 1; j <= n; j++) {
+      if (word1[i - 1] === word2[j - 1]) {
+        lcsarr[i][j] = lcsarr[i - 1][j - 1] + 1;
+        max = Math.max(lcsarr[i][j], max);   // 判断最大值
+        index = i - 1;    // 判断位置
       } else {
-        if (word1[i - 1] === word2[j - 1]) {
-          lcsarr[i][j] = lcsarr[i - 1][j - 1] + 1;
-        } else {
-          lcsarr[i][j] = 0;
-        }
+        lcsarr[i][j] = 0;
       }
-      if (max < lcsarr[i][j]) {
-        max = lcsarr[i][j];
-        index = i;
-      }
+      console.log(max, 'max')
+
+
+      // if (max <= lcsarr[i][j] + 1) {
+      //   max = lcsarr[i][j];
+      //   index = i;
+      console.log(index, 'index')
+      // }
     }
   }
+  // 组子串，感觉还有些问题，后续可以改进下(错误原因是如果word1变2不变的话，index在变，导致无法根据index和
+  // max取到一致的word2中子串，解决办法就是下面暴力求子串中先比较2字符中，求个最小word长度，这样就应该可以了，
+  console.log('222', lcsarr)
   let str = '';
   if (max === 0) {
     return '';
   } else {
-    for (let i = index - max; i <= max; i++) {
-      str += word2[i];
-    }
+    str = word2.slice(index - max, index)
+    // for (let i = index - max; i < index; i++) {
+    //   str += word2[i];
+    // }
     return str;
   }
 }
@@ -108,7 +126,7 @@ const findSubStr = (str1, str2) => {
 }
 //test 动态规划和暴力最长公共子串
 console.time('动态规划最长公共子串耗时');
-console.log('动态规划最长公共子串:', lcs('bbcc2d', 'bbcc2'));
+console.log('动态规划最长公共子串:', lcs('323wej', 'fjawe'));
 console.timeEnd('动态规划最长公共子串耗时');
 
 console.time('暴力最长公共子串耗时');
