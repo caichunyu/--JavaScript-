@@ -54,7 +54,7 @@ console.timeEnd('动态规划计算斐波那契数列耗时');
 function lcs(word1, word2) { // 参数分别代表两个字符串
                              // 声明两个变量和存储两个字符串相同位置字符比较结果的二维数组
   let max = 0; // 子串的长度值
-  let index = 0; // 子串开始的位置
+  let index = 0; // 子串所在位置最大值
   let m = word1.length;
   let n = word2.length;
 
@@ -71,24 +71,18 @@ function lcs(word1, word2) { // 参数分别代表两个字符串
   console.log('111', lcsarr)
   // 根据状态迁移方程求最大值，然后最大值的所在的位置
   // 做矩阵，可以看出子串
-  for (let i = 1; i <= m; i++) {
+  for (let i = 1; i < m; i++) {
     // lcsarr[i] = [0]; //同上的 //初始化一行 后的初始化列
-    for (let j = 1; j <= n; j++) {
-      if (word1[i - 1] === word2[j - 1]) {
+    for (let j = 1; j < n; j++) {
+      if (word1[i] === word2[j]) {
         lcsarr[i][j] = lcsarr[i - 1][j - 1] + 1;
         max = Math.max(lcsarr[i][j], max);   // 判断最大值
-        index = i - 1;    // 判断位置
+        index = i+1;    // 判断位置
+        console.log(index, 'index iii')
       } else {
         lcsarr[i][j] = 0;
       }
       console.log(max, 'max')
-
-
-      // if (max <= lcsarr[i][j] + 1) {
-      //   max = lcsarr[i][j];
-      //   index = i;
-      console.log(index, 'index')
-      // }
     }
   }
   // 组子串，感觉还有些问题，后续可以改进下(错误原因是如果word1变2不变的话，index在变，导致无法根据index和
@@ -98,10 +92,7 @@ function lcs(word1, word2) { // 参数分别代表两个字符串
   if (max === 0) {
     return '';
   } else {
-    str = word2.slice(index - max, index)
-    // for (let i = index - max; i < index; i++) {
-    //   str += word2[i];
-    // }
+    str = word1.slice(index - max, index) // 子串为子串位置最大值减去子串长度到位置最大值到字符串
     return str;
   }
 }
@@ -126,9 +117,9 @@ const findSubStr = (str1, str2) => {
 }
 //test 动态规划和暴力最长公共子串
 console.time('动态规划最长公共子串耗时');
-console.log('动态规划最长公共子串:', lcs('323wej', 'fjawe'));
+console.log('动态规划最长公共子串:', lcs('wadssa', 'fsa'));
 console.timeEnd('动态规划最长公共子串耗时');
 
 console.time('暴力最长公共子串耗时');
-console.log('暴力最长公共子串:', findSubStr('fawejfl;dsak；ew', 'dfklajsd;lfjawe;'));
+console.log('暴力最长公共子串:', findSubStr('33qkherlj', 'f33kjsahd'));
 console.timeEnd('暴力最长公共子串耗时')
