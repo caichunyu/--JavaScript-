@@ -5,6 +5,21 @@
   <title>Title</title>
 </head>
 <body>
-
+<h1>snapshots</h1>
+<ul>
+  <li>
+<!--    函数的参数this指的是这个a元素节点，返回false是为了不让跳到新页面-->
+    <a href="dom1.png" title="dom 1" onclick="showPic(this);return false">dom 1</a>
+  </li>
+  <li>
+    <a href="dom2.png" title="dom 2" onclick="showPic(this);return false">dom 2</a>
+  </li>
+  <li>
+    <a href="dom3.png" title="dom 3" onclick="showPic(this);return false">dom 3</a>
+  </li>
+</ul>
+<img id="placeholder" src="placeHolder.png" alt="dom">
+<p id="description">choose a img</p>
+<script src="showPic.js"></script>
 </body>
 </html>
