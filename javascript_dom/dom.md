@@ -25,7 +25,6 @@ func();
 }
 ```
 ###把一个节点插入到另一个之后的函数
-
 两个参数一个是待插入元素，一个是目标元素；将目标元素的parentNode属性保存到parent里；然后检查目标元素是否为parent的最后一个子元素，是的话将新元素追加到
 parent元素上，不是的话把新元素插入到目标元素和目标元素的下一个兄弟元素中。
 ```
@@ -38,3 +37,8 @@ parent.insertBefore(newElement, targetElement.nextSibling);
 }
 }
 ```
+###js dom动画
+书中的使用setTimeout函数改变位置形成动画太古老了，W3C提供了window.requestAnimationFrame API，告诉浏览器下次重绘前执行动画，
+使用dom动画的话参考https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestAnimationFrame，
+https://zh.javascript.info/js-animation，
+淘系前端的动画文章https://fed.taobao.org/blog/taofed/do71ct/js-animation-base/
