@@ -17,7 +17,7 @@ function BST() {
   this.insert = insert; //插入
   this.inOrder = inOrder; //中序
   this.preOrder = preOrder; //先序
-  this.preOrder = postOrder; //后序
+  this.postOrder = postOrder; //后序
   this.getMin = getMin; //找最小节点
   this.getMax = getMax; //最大节点
   this.find = find; //给定值查找
