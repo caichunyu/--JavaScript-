@@ -59,6 +59,22 @@ function inOrder(node = this.root) { //默认参数
     inOrder(node.right);
   }
 }
+// 二叉树的中序遍历
+// var inorderTraversal = function(root) {
+//   let res=[],stack=[]
+//   //逻辑参考前序，变化就是中序遍历，出栈的时候一定有val
+//   while(stack.length||root){
+//     if(root){
+//       stack.push(root)
+//       root=root.left
+//     }else{
+//       root= stack.pop()
+//       res.push(root.val)
+//       root= root.right
+//     }
+//   }
+//   return res
+// };
 
 //先序遍历 遍历当下的
 function preOrder(node) {
@@ -68,6 +84,24 @@ function preOrder(node) {
     preOrder(node.right);
   }
 }
+//先序遍历 非递归形式，用栈代替 leetCode
+// var preorderTraversal = function (root) {
+//   let stack = [], res = []
+//   if (root === null) return res
+//   //模仿递归，先左遍历完后右
+//   while (stack.length || root) {
+//     // 判断先左后右
+//     if (root) {
+//       res.push(root.val)
+//       stack.push(root)
+//       root = root.left
+//     } else {
+//       root = stack.pop()
+//       root = root.right
+//     }
+//   }
+//   return res
+// };
 
 //后序遍历，先到左下，然后对应的右下，然后父节点
 function postOrder(node) {
@@ -77,6 +111,27 @@ function postOrder(node) {
     console.log(node.show() + ' ');
   }
 }
+//后序遍历非递归，这个比较困难，关键点有判断头节点再入栈和记录访问过的结点
+// var postorderTraversal = function(root) {
+//   let res = [],stack=[],prev=null //prev指向刚访问过的结点
+//   while(stack.length || root){
+//     if(root){
+//       stack.push(root)
+//       root = root.left
+//     }else{
+//       root=stack.pop()
+//       if(root.right === null || root.right === prev){ //判断
+//         prev = root
+//         res.push(root.val)
+//         root=null //跳出
+//       }else{
+//         stack.push(root) //把【1，2，3】中的1又加入到栈了
+//         root=root.right
+//       }
+//     }
+//   }
+//   return res
+// };
 
 // inorder 测试
 let nums = new BST();
@@ -137,10 +192,11 @@ function find(data) {
 function remove(data) {
   root = removeNode(this.root, data);
 }
+
 //参数data为待删除数据，node默认是根节点
 //函数返回删除的节点，然后打印二叉树是删除后的二叉树
 //用chrome控制台看思路
-function removeNode(node, data ) {
+function removeNode(node, data) {
   if (!node) { //空树
     console.log('!node')
     return null;
@@ -171,7 +227,7 @@ function removeNode(node, data ) {
     return node;
   } else { //向右下走类似查找那个
     node.right = removeNode(node.right, data);
-    console.log(' node.right2',node.right)
+    console.log(' node.right2', node.right)
     return node;
   }
 }
@@ -180,11 +236,11 @@ function removeNode(node, data ) {
 console.log('------ getMin');
 // nums.getMin()
 // console.log(nums.root)
-console.log(getMin(nums.root),nums.getMin())
+console.log(getMin(nums.root), nums.getMin())
 console.log(nums.getMax())
 console.log(nums.find(22), 'find',)
 console.log('------ remove');
-console.log(removeNode(nums.root,23))
+console.log(removeNode(nums.root, 23))
 //详细解释下removeNode(nums.root,23)，二叉树中序为3，16，22，23，45，37，99删除节点值为23的过程
 //删除23，1：从根节点开始查找删除的数值等于节点值，然后判断此节点有无子节点
 // 2：当前节点有子节点，且左右子树都存在，查找右子树的最小子节点，保存
