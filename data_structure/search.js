@@ -20,10 +20,11 @@ console.timeEnd('顺序查找耗时');
 // 元素以外的前半部分（较小）或者后半部分（较大）寻找，重复上述直到找到为止。
 function binarySearch(array, key) { //参数为查找的数组和查找的key
   let upperBound = array.length - 1, lowerBound = 0; //查找的上下界数据位置
-  while (lowerBound <= upperBound) { //当下界小于等于上界时候执行
+  while (lowerBound <= upperBound) { //当下界小于等于上界时候执行，=时搜索边界值
     let mid = Math.floor((upperBound + lowerBound) / 2); // 中点
     if (array[mid] < key) { //中点数值小于待查找key
-      lowerBound = mid + 1; //下界变为中点的后一个位置，相当于后续在中点的后半部分查找
+      //下界变为中点的后一个位置，相当于后续在中点的后半部分查找,+1因为mid时肯定不等于key
+      lowerBound = mid + 1;
     } else if (array[mid] > key) { //中点值比key大
       upperBound = mid - 1; //上界位置变为中点前一个，后续在前面查找
     } else {
