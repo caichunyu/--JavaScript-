@@ -28,13 +28,45 @@ class Heap {
     }
   }
 
+// 返回元素，出队
   pop() {
-  } // 返回元素，出队
+    if (this.size === 0) { // 当前无元素就返回null
+      return null
+    }
+    let {array} = this;
+    if (array === this.array) {
+      console.log('333')
+    }
+    this._swap(1, array[array.length - 1]); //换末尾上来，堆顶放到最后
+    let res = array.pop();
+    this._down(1);//换上来的元素尝试下沉；
+    return res;
+  }
+
+  //下沉第i个元素 params i
+  _down(i) {
+    let {array, compare, _left, _right, size} = this;
+    //如果i是堆底，就沉不下去了
+    while (_left(i) <= size) {
+      let child = _left(i);
+      if (_right(i) <= size && compare(array[_right(i)], array[child])) { //选孩子节点中更靠近堆顶的，这样能保持原本的左右顺序
+        child = _right(i);
+      }
+      //如果当前i比子节点更靠近堆顶，就不用下沉了
+      if (compare(array[i], array[child])) {
+        return;
+      }
+      //继续下沉
+      this._swap(i, child);
+      i = child;
+    }
+  }
 
   // 返回优先级最高元素，不出队
   peek() {
     return this.array[1];
   }
+
   size() {
   } // 队列长度
 }
