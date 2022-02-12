@@ -1,6 +1,7 @@
 //堆，本文实现二叉堆，堆首先是完全二叉树，根据完全二叉树性质来说，从数组array第一个位置不放元素，从1开始，对后面对下标i来说
 //后面对下标对应对父节点为当前下标除以2后结果取整，左子节点为当前对下标*2，右子节点为下标*2+1，可以方便找到任意节点对父子节点，
 //在调整堆时候很方便；堆的实现方式很适合实现优先队列，一般就也才用堆来实现优先队列；
+//本文具体思路源自https://blog.csdn.net/m0_38086372/article/details/108440136
 
 class Heap {
 
@@ -34,10 +35,7 @@ class Heap {
       return null
     }
     let {array} = this;
-    if (array === this.array) {
-      console.log('333')
-    }
-    this._swap(1, array[array.length - 1]); //换末尾上来，堆顶放到最后
+    this._swap(1, array.length - 1); //换末尾上来，堆顶放到最后
     let res = array.pop();
     this._down(1);//换上来的元素尝试下沉；
     return res;
@@ -67,6 +65,49 @@ class Heap {
     return this.array[1];
   }
 
-  size() {
-  } // 队列长度
+// 队列长度
+  get size() {
+    return this.array.length - 1;
+  }
+
+  //获取左右还有父节点
+  _left(i) {
+    return i * 2;
+  }
+
+  _right(i) {
+    return i * 2 + 1;
+  }
+
+  _parent(i) {
+    return Math.floor(i / 2);
+  }
+
+  //交换
+  _swap(i, j) {
+    [this.array[i], this.array[j]] = [this.array[j], this.array[i]];
+  }
+
+  //默认比较函数，a是否比b更解决堆顶，默认小顶堆
+  _defaultCompare(a, b) {
+    return a < b; // 大顶堆为a>b
+  }
+
+  //根据data数据shengcheng堆
+  static heapify(data, compare = undefined) {
+    let heap = new Heap(compare);
+    for (let i of data) {
+      heap.push(i)
+    }
+    return heap;
+  }
 }
+
+let heap = Heap.heapify([1, 2, 3]);
+heap.push(8)
+heap.pop();
+heap.pop();
+heap.pop();
+heap.size();
+heap.peek();
+
